@@ -5,6 +5,7 @@
 #include <utility>
 #include <stdio.h>
 #include <math.h>
+#include <Windows.h>
 
 int nScreenWidth = 120;			// Console Screen Size X (columns)
 int nScreenHeight = 40;			// Console Screen Size Y (rows)
