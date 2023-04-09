@@ -95,7 +95,7 @@ int main (int argc, char **argv){
                 }
                 else if( map[(testY*mapWidth) + testX] == '#'){
                     hitWall = true;
-                    // distanceToWall value is retained (increment one)
+                    // distanceToWall value is retained (originally increment one)
                 }
                 
             }
