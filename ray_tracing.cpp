@@ -86,7 +86,7 @@ int main (int argc, char **argv){
                 distanceToWall += 0.1f;  //small increment for more precision
 
                 int testX = (int)(playerX + ((eye.X)*distanceToWall));
-                int testY = (int)(playerX + ((eye.Y)*distanceToWall));
+                int testY = (int)(playerY + ((eye.Y)*distanceToWall));
 
                 // check the position wrt boundaries of map 
                 if(testX<0 || testX>=mapWidth || testY<0 || testY>=mapHeight){
