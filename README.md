@@ -65,7 +65,15 @@ $$c = \frac{h_{scr}}{2} - \frac{h_{scr}}{d}$$
 $$f = h_cr - c $$
 
 ### Results so far
-We have a wall visible with the `#` and floor and ceiling as empty spaces. Two spawns $(8.0,8.0,0.0)$ and $(8.0,8.0,\frac{\pi}{4})$ are shown based on the current code
+We print to the buffer column wise having a wall visible with the `#` and floor and ceiling as empty spaces.
+
+```cpp
+for(int y=0; y<screenHeight; y++){
+    screen[y*screenWidth + x] = ((y<=ceiling)?' '((y>ceiling&&y<=floor)?'#':' '));
+}
+```
+
+ Two spawns $(8.0,8.0,0.0)$ and $(8.0,8.0,\frac{\pi}{4})$ are shown based on the current code
 
 ![spawn1](docs/9_4_0.png)
 
