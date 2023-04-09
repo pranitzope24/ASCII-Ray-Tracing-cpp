@@ -69,7 +69,7 @@ We print to the buffer column wise having a wall visible with the `#` and floor 
 
 ```cpp
 for(int y=0; y<screenHeight; y++){
-    screen[y*screenWidth + x] = ((y<=ceiling)?' '((y>ceiling&&y<=floor)?'#':' '));
+    screen[y*screenWidth + x] = ((y<=ceiling)?' ':((y>ceiling&&y<=floor)?'#':' '));
 }
 ```
 
