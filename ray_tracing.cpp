@@ -82,6 +82,7 @@ int main (int argc, char **argv){
             eye.Y = cosf(rayAngle);
 
             while (!hitWall && distanceToWall < depth){
+
                 distanceToWall += 0.1f;  //small increment for more precision
 
                 int testX = (int)(playerX + ((eye.X)*distanceToWall));
@@ -96,7 +97,7 @@ int main (int argc, char **argv){
                     hitWall = true;
                     // distanceToWall value is retained (increment one)
                 }
-
+                
             }
 
             //now for ceiling, we can use simple geometry and trim portions form up and down symmetrically
