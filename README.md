@@ -44,7 +44,7 @@ The following image contains the player, the wall and the FOV of the player in t
 > * $\theta$ = FOV
 > * $d$ = distance to wall
 
-We calculate the distance to the wall by incrementing until the flag `bHitWall` becomes true. (Depicted by the blue dashed line).
+We calculate the distance to the wall by incrementing until the flag `hitWall` becomes true. (Depicted by the blue dashed line).
 If the point of calculation is out of bounds, we set it to the defined depth. Else we can continue until it reaches a wall and use the incremented value as the distance to wall.
 $$
 \alpha_r = \left(\alpha_p - \frac{\theta}{2}\right) + \frac{x_{iter}}{w_{scr}} \cdot \theta
