@@ -41,7 +41,7 @@ int main (int argc, char **argv){
     wchar_t *screen = new wchar_t[screenWidth*screenHeight];
     HANDLE console = CreateConsoleScreenBuffer(GENERIC_READ|GENERIC_WRITE,0,__null,CONSOLE_TEXTMODE_BUFFER,__null);
     SetConsoleActiveScreenBuffer(console);
-    DWORD dwBytesWritten = 0;
+    DWORD bytesWritten = 0;
 
     //Creating the map
     std::wstring map;
@@ -111,7 +111,7 @@ int main (int argc, char **argv){
 
         //Display Frame
         screen[screenWidth*screenHeight-1] = '\0';
-		WriteConsoleOutputCharacterW(console, screen, screenWidth*screenHeight, {0,0}, &dwBytesWritten);
+		WriteConsoleOutputCharacterW(console, screen, screenWidth*screenHeight, {0,0}, &bytesWritten);
     }
 
     return 0;
