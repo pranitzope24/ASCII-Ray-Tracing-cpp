@@ -58,6 +58,7 @@ Then we make integral test vectors to determine the position using the $\hat{e}$
 This part is fairly easy and just involves some perspective. Upper half of the screen will have the ceiling and farther the wall is, lower the ceiling.
 
 $$c = \frac{h_{scr}}{2} - \frac{h_{scr}}{d}$$
+
 $$f = h_cr - c $$
 
 ### Results so far
