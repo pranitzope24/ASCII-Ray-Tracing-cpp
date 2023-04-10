@@ -119,3 +119,5 @@ Using a ratio to set the floor shading since the relative distance to the floori
 $$f_r = 1- \frac{y_{iter} - \frac{h_{scr}}{2}}{\frac{h_{scr}}{2}}$$
 
 and then shade the portions accordingly.
+Now it looks like it has a 3D perspective. Only the shape boundary has to be designed for a better view.
+![floor shading](docs/10_4_flrshd.png)
