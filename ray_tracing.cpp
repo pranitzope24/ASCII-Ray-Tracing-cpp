@@ -122,7 +122,7 @@ int main (int argc, char **argv){
             }
 
             //now for ceiling, we can use simple geometry and trim portions form up and down symmetrically
-            int ceiling = (float)(screenHeight/2.0) - screenHeight/((float)distanceToWall);
+            int ceiling = (float)(screenHeight/2.0f) - screenHeight/((float)distanceToWall);
             int floor = screenHeight - ceiling;
 
             for(int y=0; y<screenHeight; y++){
