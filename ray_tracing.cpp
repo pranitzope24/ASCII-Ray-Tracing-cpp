@@ -131,7 +131,7 @@ int main (int argc, char **argv){
 
 
 
-            char shadeChar = ' ';
+            short shadeChar = ' ';
 
             if(distanceToWall <= depth/4.0f){
                 shadeChar = 0x2588;
@@ -141,6 +141,9 @@ int main (int argc, char **argv){
             }
             else if (distanceToWall < depth/2.0f){
                 shadeChar = 0x2592;
+            }   
+            else if (distanceToWall < depth){
+                shadeChar = 0x2591;
             }   
             else {
                 shadeChar = ' ';
@@ -153,7 +156,7 @@ int main (int argc, char **argv){
                     screen[y * screenWidth + x] = ' ';
                 }
                 if(y > ceiling && y <= floor){
-                    screen[y * screenWidth + x] = '#';
+                    screen[y * screenWidth + x] = shadeChar;
                 }
                 else {
                     screen[y * screenWidth + x] = ' ';
