@@ -6,30 +6,27 @@
 #include <stdio.h>
 #include <math.h>
 #include <Windows.h>
-
-int screenWidth = 120;			// Console Screen Size X (columns)
-int screenHeight = 40;			// Console Screen Size Y (rows)
-int mapWidth = 16;				// World Dimensions W
-int mapHeight = 16;             // World Dimensions H
-
-float playerX = 8.0f;		    // Player Start Position X
-float playerY = 8.0f;           // Player Start Position Y
-float playerA = 0.0f;			// Player Start Rotation
-// float playerA = M_PI_4;			
-// float playerA = M_PI_2;			
-// float playerA = 3*M_PI_4;			
- 
-float FOV = M_PI_4;	            // Field of View (pi/4) 
-
-float depth = 16.0f;			// Maximum rendering distance
-// float speed = 5.0f;             // Movement speed
-
 typedef struct uvec {
     float X;
     float Y;
     //float Z;  //not needed for now
 } uvec;
 
+int screenWidth = 120;			// Console Screen Size X (columns)
+int screenHeight = 40;			// Console Screen Size Y (rows)
+
+int mapWidth = 16;				// World Dimensions W
+int mapHeight = 16;             // World Dimensions H
+
+float playerX = 8.0f;		    // Player Start Position X
+float playerY = 8.0f;           // Player Start Position Y
+float playerA = 0.0f;			// Player Start Rotation	
+ 
+float FOV = M_PI_4;	            // Field of View (pi/4) 
+float depth = 16.0f;			// Maximum rendering distance
+
+float movSpeed = 5.0f;          // Movement speed
+float angSpeed = 0.8f;          // Angular speed
 
 int main (int argc, char **argv){
     
@@ -78,18 +75,18 @@ int main (int argc, char **argv){
 
 
         if(GetAsyncKeyState('A') & 0x8000){
-            playerA -= 0.1f * frameTime;
+            playerA -= angSpeed * frameTime;
         }
         if(GetAsyncKeyState('D') & 0x8000){
-            playerA += 0.1f * frameTime;
+            playerA += angSpeed * frameTime;
         }
         if(GetAsyncKeyState('W') & 0x8000){
-            playerX +=  sinf(playerA) * 5.0f * frameTime;
-            playerY +=  cosf(playerA) * 5.0f * frameTime;
+            playerX +=  sinf(playerA) * movSpeed * frameTime;
+            playerY +=  cosf(playerA) * movSpeed * frameTime;
         }
         if(GetAsyncKeyState('S') & 0x8000){
-            playerX -=  sinf(playerA) * 5.0f * frameTime;
-            playerY -=  cosf(playerA) * 5.0f * frameTime;
+            playerX -=  sinf(playerA) * movSpeed * frameTime;
+            playerY -=  cosf(playerA) * movSpeed * frameTime;
         }
 
         // We will deal column wise hence a for loop for column operations
