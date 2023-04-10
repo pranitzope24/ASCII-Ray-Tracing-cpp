@@ -9,7 +9,7 @@
 typedef struct uvec {
     float X;
     float Y;
-    //float Z;  //not needed for now
+    //float Z;
 } uvec;
 
 int screenWidth = 120;			// Console Screen Size X (columns)
@@ -27,6 +27,9 @@ float depth = 16.0f;			// Maximum rendering distance
 
 float movSpeed = 5.0f;          // Movement speed
 float angSpeed = 0.8f;          // Angular speed
+
+
+char shade(float __dist);
 
 int main (int argc, char **argv){
     
@@ -92,19 +95,19 @@ int main (int argc, char **argv){
         // We will deal column wise hence a for loop for column operations
         for(int x=0; x< screenWidth; x++){
 
-            //calculate the ray angle, and find the distance to the wall using a flag, and computing the eye angles
+            // calculate the ray angle, and find the distance to the wall using a flag, and computing the eye angles
             float rayAngle = (playerA - FOV/2.0f) + ((float)x / (float)screenWidth) * FOV;
             float distanceToWall = 0; 
             bool hitWall = false;      
 
-            //unit vector for ray
+            // unit vector for ray
             uvec eye;
             eye.X = sinf(rayAngle);
             eye.Y = cosf(rayAngle);
 
             while (!hitWall && distanceToWall < depth){
 
-                distanceToWall += 0.1f;  //small increment for more precision
+                distanceToWall += 0.1f;  // small increment for more precision
 
                 int testX = (int)(playerX + ((eye.X)*distanceToWall));
                 int testY = (int)(playerY + ((eye.Y)*distanceToWall));
@@ -121,12 +124,40 @@ int main (int argc, char **argv){
                 
             }
 
-            //now for ceiling, we can use simple geometry and trim portions form up and down symmetrically
+            // now for ceiling, we can use simple geometry and trim portions form up and down symmetrically
+            // NOTE : y calculated from top to bottom
             int ceiling = (float)(screenHeight/2.0f) - screenHeight/((float)distanceToWall);
             int floor = screenHeight - ceiling;
 
+
+
+            char shadeChar = ' ';
+
+            if(distanceToWall <= depth/4.0f){
+                shadeChar = 0x2588;
+            }
+            else if (distanceToWall < depth/3.0f){
+                shadeChar = 0x2593;
+            }
+            else if (distanceToWall < depth/2.0f){
+                shadeChar = 0x2592;
+            }   
+            else {
+                shadeChar = ' ';
+            }
+
+
+
             for(int y=0; y<screenHeight; y++){
-                screen[y*screenWidth + x] = ((y<=ceiling)?' ':((y>ceiling&&y<=floor)?'#':' '));
+                if(y <= ceiling){
+                    screen[y * screenWidth + x] = ' ';
+                }
+                if(y > ceiling && y <= floor){
+                    screen[y * screenWidth + x] = '#';
+                }
+                else {
+                    screen[y * screenWidth + x] = ' ';
+                }
             }
 
         }
