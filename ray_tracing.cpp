@@ -64,10 +64,34 @@ int main (int argc, char **argv){
     map+= L"################";
 
 
+    auto t1 = std::chrono::system_clock::now();
+    auto t2 = std::chrono::system_clock::now();
 
     // Main loop
     while(true){
         
+        t2 = std::chrono::system_clock::now();
+        std::chrono::duration<float> elapsedFrameTime = t2-t1;
+        t1 = t2;
+        float frameTime = elapsedFrameTime.count();
+
+
+
+        if(GetAsyncKeyState('A') & 0x8000){
+            playerA -= 0.1f * frameTime;
+        }
+        if(GetAsyncKeyState('D') & 0x8000){
+            playerA += 0.1f * frameTime;
+        }
+        if(GetAsyncKeyState('W') & 0x8000){
+            playerX +=  sinf(playerA) * 5.0f * frameTime;
+            playerY +=  cosf(playerA) * 5.0f * frameTime;
+        }
+        if(GetAsyncKeyState('S') & 0x8000){
+            playerX -=  sinf(playerA) * 5.0f * frameTime;
+            playerY -=  cosf(playerA) * 5.0f * frameTime;
+        }
+
         // We will deal column wise hence a for loop for column operations
         for(int x=0; x< screenWidth; x++){
 
