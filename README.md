@@ -75,6 +75,7 @@ for(int y=0; y<screenHeight; y++){
 
  Two spawns $(8.0,8.0,0.0)$ and $(8.0,8.0,\frac{\pi}{4})$ are shown based on the current code
 
+
 ![spawn1](docs/9_4_0.png)
 
 ![spawn2](docs/9_4_pi4.png)
@@ -95,6 +96,26 @@ Hence,
 * for rotations, we simply increment or decrement the angles (maybe set an angular speed variable later on).
 * For position, we simply transform the coordinates in the Player frame and traverse using the additions of sines and cosines of `playerA` to the current position with a given speed.
 
-## Shading
+## Shading Walls for Better Clarity
+Distinguishing the wall in the form of hashes was difficult to understand. Hence did a distance based shading for the walls. Based on comparision of depth proportioanlity and distance of the wall/obstacle from the player, used the extended ASCII characters 
 
+* █ - `hex 0x2588` U+2588 For full shading
+* ▓ - `hex 0x2593` U+2593 For dark shading
+* ▒ - `hex 0x2592` U+2592 For medium shading
+* ░ - `hex 0x2591` U+2591 For light shading
+* blank character for very distant walls
 
+![wall shading](docs/10_4_shade.png)
+
+## Fixing the Boundaries and Collisions
+Used the `std::wstring map [y*w + x]` such that if the FOV array of distances lands on a `#` character, then it would revert the movement caused, hence never crossing a wall or a block.
+
+At this point, the wall is visible but it's still difficult to distinguish between the boundaries of the wall. Hence we will need to define boundaries by hightlighting corners or edges in periodic intervals.
+
+To do this, (well see how this goes)
+## Floor Shading (just for aesthetics)
+Using a ratio to set the floor shading since the relative distance to the flooring will remain constant as we don't have any motion in the $z$ direction.
+
+$$f_r = 1- \frac{y_{iter} - \frac{h_{scr}}{2}}{\frac{h_{scr}}{2}}$$
+
+and then shade the portions accordingly.

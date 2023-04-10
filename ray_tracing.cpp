@@ -26,7 +26,7 @@ float FOV = M_PI_4;	            // Field of View (pi/4)
 float depth = 16.0f;			// Maximum rendering distance
 
 float movSpeed = 5.0f;          // Movement speed
-float angSpeed = 0.8f;          // Angular speed
+float angSpeed = 1.2f;          // Angular speed
 
 
 char shade(float __dist);
@@ -47,22 +47,22 @@ int main (int argc, char **argv){
     std::wstring map;
 
     map+= L"################";
+    map+= L"#........#.....#";
+    map+= L"#........#.....#";
+    map+= L"#........#.....#";
+    map+= L"#........#.....#";
+    map+= L"#..#.....#.....#";
     map+= L"#..............#";
     map+= L"#..............#";
     map+= L"#..............#";
     map+= L"#..............#";
-    map+= L"#..............#";
-    map+= L"#..............#";
-    map+= L"#..............#";
-    map+= L"#..............#";
-    map+= L"#..............#";
-    map+= L"#..............#";
-    map+= L"#..............#";
-    map+= L"#..............#";
-    map+= L"#..............#";
+    map+= L"#...##.####....#";
+    map+= L"#...#..........#";
+    map+= L"#...#..........#";
+    map+= L"#...#..........#";
     map+= L"#..............#";
     map+= L"################";
-
+ 
 
     auto t1 = std::chrono::system_clock::now();
     auto t2 = std::chrono::system_clock::now();
@@ -76,7 +76,6 @@ int main (int argc, char **argv){
         float frameTime = elapsedFrameTime.count();
 
 
-
         if(GetAsyncKeyState('A') & 0x8000){
             playerA -= angSpeed * frameTime;
         }
@@ -86,10 +85,18 @@ int main (int argc, char **argv){
         if(GetAsyncKeyState('W') & 0x8000){
             playerX +=  sinf(playerA) * movSpeed * frameTime;
             playerY +=  cosf(playerA) * movSpeed * frameTime;
+            if(map[(int)playerY*mapWidth + (int)playerX] == '#') {
+                playerX -=  sinf(playerA) * movSpeed * frameTime;
+                playerY -=  cosf(playerA) * movSpeed * frameTime;
+            }
         }
         if(GetAsyncKeyState('S') & 0x8000){
             playerX -=  sinf(playerA) * movSpeed * frameTime;
             playerY -=  cosf(playerA) * movSpeed * frameTime;
+            if(map[(int)playerY*mapWidth + (int)playerX] == '#'){
+                playerX +=  sinf(playerA) * movSpeed * frameTime;
+                playerY +=  cosf(playerA) * movSpeed * frameTime;
+            }
         }
 
         // We will deal column wise hence a for loop for column operations
@@ -158,8 +165,27 @@ int main (int argc, char **argv){
                 if(y > ceiling && y <= floor){
                     screen[y * screenWidth + x] = shadeChar;
                 }
-                else {
-                    screen[y * screenWidth + x] = ' ';
+                else { //floor shading
+                    float floorRatio = 1.0f - (((float)y -screenHeight/2.0f) / ((float)screenHeight / 2.0f));
+                    char floorShade = ' ';
+                    
+                    if (floorRatio<0.25){
+                        floorShade = '#';
+                    }
+                    else if(floorRatio<0.5){
+                        floorShade = 'x';
+                    }
+                    else if(floorRatio<0.75){
+                        floorShade = '.';
+                    }
+                    else if(floorRatio<0.5){
+                        floorShade = '-';
+                    }
+                    else {
+                        floorShade = ' ';
+                    }
+                    screen[y*screenWidth + x] = floorShade;
+                    // screen[y*screenWidth + x] = ' ';
                 }
             }
 
